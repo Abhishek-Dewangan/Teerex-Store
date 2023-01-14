@@ -1,0 +1,17 @@
+.main{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 2em;
+    font-weight: bold;
+    background-color: silver;
+    margin: 1em 1.5em;
+}
+.checkout{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+.shoppingIcon{
+    font-size: 2em;
+}
