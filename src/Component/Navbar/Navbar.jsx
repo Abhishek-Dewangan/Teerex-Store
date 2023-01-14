@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {GiShoppingCart} from 'react-icons/gi';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
+  const [count, setCount] = useState(0);
   return (
     <div className={styles.main}>
       <div>
@@ -10,7 +11,13 @@ const Navbar = () => {
       </div>
       <div className={styles.checkout}>
         <p>Products</p>
-        <GiShoppingCart className={styles.shoppingIcon}/>
+        <div className={styles.shoppingCart}>
+          <span className={styles.countNotification}>{count}</span>
+          <GiShoppingCart
+            onClick={() => setCount(count + 1)}
+            className={styles.shoppingIcon}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,17 +1,30 @@
-.main{
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 2em;
-    font-weight: bold;
-    background-color: silver;
-    margin: 1em 1.5em;
+.main {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 2em;
+  font-weight: bold;
+  background-color: silver;
+  margin: 1em 1.5em;
 }
-.checkout{
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    align-items: center;
+.checkout {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
 }
-.shoppingIcon{
-    font-size: 2em;
+.shoppingCart {
+  position: relative;
+}
+.notificationIcon {
+  position: absolute;
+}
+.countNotification{
+    position: absolute;
+    right: -3px;
+    top: -7px;
+    font-size: small;
+    color: rgb(82, 82, 82);
+}
+.shoppingIcon {
+  font-size: 2em;
 }
