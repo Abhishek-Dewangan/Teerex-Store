@@ -1,0 +1,58 @@
+.main {
+  display: flex;
+  justify-content: space-between;
+  margin: 2em 1.5em;
+}
+.filterBar {
+  border: solid black 2px;
+  width: 20%;
+  margin-left: 4em;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2em;
+  width: 65%;
+  margin-right: 4em;
+}
+.productBox {
+  width: 100%;
+  margin: auto;
+  position: relative;
+  bottom: 0;
+  /* padding: 5px; */
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+.productName {
+  font-weight: bold;
+  text-align: center;
+  background: rgb(231, 231, 231);
+  margin: 0;
+  padding: 5px 0;
+}
+.imageBox{
+  padding: 10px;
+}
+.productImage {
+  width: 100%;
+  height: 220px;
+}
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: silver;
+  height: 40px;
+}
+.price p {
+  margin-left: 0.5em;
+  font-weight: bold;
+}
+.price button {
+  width: 60%;
+  height: 40px;
+  background: black;
+  color: white;
+  font-weight: bold;
+}
