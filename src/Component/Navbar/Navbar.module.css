@@ -1,10 +1,13 @@
 .main {
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   padding: 10px 2em;
   font-weight: bold;
   background-color: silver;
-  margin: 1em 1.5em;
+  /* margin: 1em 1.5em; */
 }
 .checkout {
   display: flex;
