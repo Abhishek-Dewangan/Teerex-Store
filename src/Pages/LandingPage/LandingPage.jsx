@@ -1,49 +1,60 @@
 import React, {useEffect, useState} from 'react';
+import FilterBar from '../../Component/FilterBar/FilterBar';
 import styles from './LandingPage.module.css';
 
-const LandingPage = () => {
+const LandingPage = ({prop}) => {
+  let cartData = JSON.parse(localStorage.getItem('cart')) || [];
   const [products, setProducts] = useState([]);
   const [temp, setTemp] = useState([]);
   const [color, setColor] = useState([]);
   const [gender, setGender] = useState([]);
   const [price, setPrice] = useState([]);
+  const [search, setSearch] = useState('');
   const [type, setType] = useState([]);
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  // Applying filter data
-  const filterData = () => {
-    setTemp([...products]);
-    if (color.length) {
-      let filterData = temp.filter(
-        (el) =>
-          el.color === color[0] ||
-          el.color === color[1] ||
-          el.color === color[2]
-      );
-      setTemp([...filterData]);
+  // Applying filters
+  const filterByColors = (array) => {
+    return array.filter(
+      (el) =>
+        el.color === color[0] || el.color === color[1] || el.color === color[2]
+    );
+  };
+  const filterByGender = (array) => {
+    return array.filter(
+      (el) => el.gender === gender[0] || el.gender === gender[1]
+    );
+  };
+  const filterByType = (array) => {
+    return array.filter(
+      (el) => el.type === type[0] || el.type === type[1] || el.type === type[2]
+    );
+  };
+  const filterByPrice = (array) => {
+    console.log(price);
+    let a1 = [],
+      a2 = [],
+      a3 = [];
+    if (price.includes('1')) a1 = array.filter((el) => el.price <= 250);
+    if (price.includes('2')) {
+      a2 = array.filter((el) => el.price > 250 && el.price <= 450);
     }
-    if (gender.length) {
-      let filterData = temp.filter(
-        (el) => el.gender === gender[0] || el.gender === gender[1]
-      );
-      setTemp([...filterData]);
-    }
-    if (type.length) {
-      console.log(type);
-      let filterData = temp.filter(
-        (el) =>
-          el.type === type[0] || el.type === type[1] || el.type === type[2]
-      );
-      setTemp([...filterData]);
-    }
+    if (price.includes('3')) a3 = array.filter((el) => el.price >= 451);
+    return [...a1, ...a2, ...a3];
   };
 
   useEffect(() => {
-    filterData();
-  }, [color, gender, type, price]);
+    let result = [...products];
+    if (color.length) result = filterByColors(result);
+    if (gender.length) result = filterByGender(result);
+    if (type.length) result = filterByType(result);
+    if (price.length) result = filterByPrice(result);
+    if (search) result = findProduct(result);
+    setTemp([...result]);
+  }, [color, gender, type, price, search]);
 
   // Collecting filter values
   const setFilterValues = (e) => {
@@ -87,92 +98,68 @@ const LandingPage = () => {
     const res = await fetch(
       'https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json'
     ).then((res) => res.json());
-    setProducts(res);
-    setTemp(res);
+    setProducts([...res]);
+    setTemp([...res]);
+  };
+
+  const addToCart = (product) => {
+    let isExist = cartData.find((elem) => elem.id === product.id);
+    if (!isExist) {
+      cartData = [...cartData, product];
+      localStorage.setItem('cart', JSON.stringify(cartData));
+      prop.setItem(cartData);
+    } else {
+      alert('Item already exist in cart');
+    }
+  };
+  useEffect(() => {}, [search]);
+
+  const findProduct = (array) => {
+    return array.filter((elem) =>
+      elem.name.toLowerCase().includes(search.toLowerCase())
+    );
   };
 
   return (
     <div className={styles.main}>
       <div className={styles.filterBar}>
-        <form onChange={setFilterValues}>
-          <div>
-            <p>Color</p>
-            <label className={styles.label} htmlFor='color'>
-              <input name='color' id='color' type={'checkbox'} value='Red' />
-              <span>Red</span>
-            </label>
-            <label className={styles.label}>
-              <input name='color' type={'checkbox'} value='Blue' />
-              <span>Blue</span>
-            </label>
-            <label className={styles.label}>
-              <input name='color' type={'checkbox'} value='Green' />
-              <span>Green</span>
-            </label>
-          </div>
-          <div>
-            <p>Gender</p>
-            <label className={styles.label}>
-              <input name='gender' type={'checkbox'} value='Men' />
-              <span>Men</span>
-            </label>
-            <label className={styles.label}>
-              <input name='gender' type={'checkbox'} value='Women' />
-              <span>Women</span>
-            </label>
-          </div>
-          <div>
-            <p>Price</p>
-            <label className={styles.label}>
-              <input name='price' type={'checkbox'} value='0-250' />
-              <span>0-Rs 250</span>
-            </label>
-            <label className={styles.label}>
-              <input name='price' type={'checkbox'} value='251-450' />
-              <span>Rs 251-Rs 450</span>
-            </label>
-            <label className={styles.label}>
-              <input name='price' type={'checkbox'} value='450' />
-              <span>Rs 450</span>
-            </label>
-          </div>
-          <div>
-            <p>Type</p>
-            <label className={styles.label}>
-              <input name='type' type={'checkbox'} value='Polo' />
-              <span>Polo</span>
-            </label>
-            <label className={styles.label}>
-              <input name='type' type={'checkbox'} value='Hoodie' />
-              <span>Hoodie</span>
-            </label>
-            <label className={styles.label}>
-              <input name='type' type={'checkbox'} value='Basic' />
-              <span>Basic</span>
-            </label>
-          </div>
-        </form>
+        <FilterBar prop={{setFilterValues}} />
       </div>
-      <div className={styles.products}>
-        {temp &&
-          temp.map((elem) => {
-            return (
-              <div className={styles.productBox} key={elem.id}>
-                <p className={styles.productName}>{elem.name}</p>
-                <div className={styles.imageBox}>
-                  <img
-                    className={styles.productImage}
-                    src={elem.imageURL}
-                    alt='T-Shirt'
-                  />
+      <div className={styles.content}>
+        <div className={styles.search}>
+          <input
+            type={'text'}
+            className={styles.searchInput}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button className={styles.searchBtn} onClick={findProduct}>
+            Search
+          </button>
+        </div>
+        <div className={styles.products}>
+          {temp &&
+            temp.map((elem) => {
+              return (
+                <div className={styles.productBox} key={elem.id}>
+                  <p className={styles.productName}>{elem.name}</p>
+                  <div className={styles.imageBox}>
+                    <img
+                      className={styles.productImage}
+                      src={elem.imageURL}
+                      alt='T-Shirt'
+                    />
+                  </div>
+                  <div className={styles.price}>
+                    <p>Rs {elem.price}</p>
+                    <button onClick={() => addToCart(elem)}>Add to cart</button>
+                  </div>
                 </div>
-                <div className={styles.price}>
-                  <p>Rs {elem.price}</p>
-                  <button>Add to cart</button>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          {!temp.length && (
+            <img src='https://www.gitaa.in/img/NoRecordFound.png' alt='img' className={styles.notFound}/>
+          )}
+        </div>
       </div>
     </div>
   );

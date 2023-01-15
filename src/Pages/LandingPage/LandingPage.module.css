@@ -4,34 +4,17 @@
   margin: 2em 1.5em;
 }
 .filterBar {
-  width: fit-content;
-  height: fit-content;
-  position: sticky;
-  top: 6em;
-  margin-left: 4em;
-  padding: 0 4em 1em 2em;
-  font-weight: 700;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-}
-.label {
-  display: block;
-  font-size: small;
-  margin: 0.4em;
-  font-weight: 600;
+  margin: 0;
 }
 .products {
   display: grid;
-  /* position: relative;
-  left: 22em; */
   grid-template-columns: repeat(3, 1fr);
   gap: 2em;
-  width: fit-content;
+  width: 800px;
   margin-right: 4em;
-  /* margin: auto; */
 }
 .productBox {
-  width: 100%;
+  width: 250px;
   margin: auto;
   position: relative;
   bottom: 0;
@@ -75,4 +58,74 @@
   color: white;
   font-weight: bold;
   cursor: pointer;
+}
+.search {
+  margin: 0 auto 2em;
+}
+.searchInput {
+  width: 50%;
+  height: 30px;
+  margin: 0 1em 0 0;
+  border: none;
+  border-bottom: 1px solid gray;
+  font-size: large;
+}
+.searchBtn {
+  height: 30px;
+  margin: 0 1em 0 0;
+  border: none;
+  border-radius: 5px;
+  width: 100px;
+  color: white;
+  font-weight: 600;
+  font-size: large;
+  background-color: green;
+}
+
+@media only screen and (max-width: 800px) {
+  .main {
+    margin: 2em auto;
+    width: 100%;
+  }
+  .filterBar {
+    display: none;
+  }
+  .content {
+    margin: auto;
+  }
+  .search {
+    margin: 0 auto 1em;
+    width: 90%;
+  }
+  .products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: auto;
+    gap: 1em;
+    width: 90%;
+  }
+  .notFound {
+    width: 400px;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .main {
+    margin: 1em auto;
+  }
+  .search {
+    margin: 0 auto 1em;
+    width: 80%;
+  }
+  .content {
+    margin: auto;
+  }
+  .products {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: auto;
+    width: 80%;
+  }
+  .notFound {
+    width: 300px;
+  }
 }

@@ -1,0 +1,21 @@
+.filterBar {
+  width: fit-content;
+  height: fit-content;
+  position: sticky;
+  top: 5em;
+  margin-left: 3em;
+  padding: 1em 4em 1em 2em;
+  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+.label {
+  display: block;
+  font-size: small;
+  margin: 0.4em;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 800px) {
+ 
+}
