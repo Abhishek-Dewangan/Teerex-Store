@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import FilterBar from '../../Component/FilterBar/FilterBar';
 import styles from './LandingPage.module.css';
+import {AiFillFilter, AiOutlineClose} from 'react-icons/ai';
 
 const LandingPage = ({prop}) => {
   let cartData = JSON.parse(localStorage.getItem('cart')) || [];
@@ -11,6 +12,7 @@ const LandingPage = ({prop}) => {
   const [price, setPrice] = useState([]);
   const [search, setSearch] = useState('');
   const [type, setType] = useState([]);
+  const [filter, setFilter] = useState(false);
 
   useEffect(() => {
     getProducts();
@@ -135,6 +137,22 @@ const LandingPage = ({prop}) => {
           <button className={styles.searchBtn} onClick={findProduct}>
             Search
           </button>
+          {filter ? (
+            <AiOutlineClose
+              className={styles.closeIcon}
+              onClick={() => setFilter(false)}
+            />
+          ) : (
+            <AiFillFilter
+              className={styles.filterIcon}
+              onClick={() => setFilter(true)}
+            />
+          )}
+          {filter && (
+            <div className={styles.responsiveFilter}>
+              <FilterBar prop={{setFilterValues}} />
+            </div>
+          )}
         </div>
         <div className={styles.products}>
           {temp &&
@@ -157,7 +175,11 @@ const LandingPage = ({prop}) => {
               );
             })}
           {!temp.length && (
-            <img src='https://www.gitaa.in/img/NoRecordFound.png' alt='img' className={styles.notFound}/>
+            <img
+              src='https://www.gitaa.in/img/NoRecordFound.png'
+              alt='img'
+              className={styles.notFound}
+            />
           )}
         </div>
       </div>

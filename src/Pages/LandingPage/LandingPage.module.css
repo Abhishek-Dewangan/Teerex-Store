@@ -4,7 +4,7 @@
   margin: 2em 1.5em;
 }
 .filterBar {
-  margin: 0;
+  margin-left: 3em;
 }
 .products {
   display: grid;
@@ -81,7 +81,22 @@
   font-size: large;
   background-color: green;
 }
-
+.filterIcon {
+  font-size: larger;
+  display: none;
+}
+.responsiveFilter {
+  background: white;
+}
+@media only screen and (max-width: 1000px) {
+  .products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: auto;
+    gap: 1em;
+    width: 600px;
+  }
+}
 @media only screen and (max-width: 800px) {
   .main {
     margin: 2em auto;
@@ -89,6 +104,22 @@
   }
   .filterBar {
     display: none;
+  }
+  .filterIcon {
+    display: inline;
+    position: absolute;
+    right: 1em;
+  }
+  .closeIcon {
+    position: absolute;
+    right: 1em;
+  }
+  .responsiveFilter {
+    position: absolute;
+    z-index: 1;
+    /* background: white; */
+    right: 1em;
+    top: 9em;
   }
   .content {
     margin: auto;
@@ -115,6 +146,24 @@
   .search {
     margin: 0 auto 1em;
     width: 80%;
+  }
+  .responsiveFilter {
+    position: absolute;
+    z-index: 1;
+    background: white;
+  }
+  .searchInput {
+    width: 40%;
+    height: 30px;
+    margin: 0 1em 0 0;
+    border: none;
+    border-bottom: 1px solid gray;
+    font-size: large;
+  }
+  .searchBtn {
+    width: 60px;
+    font-size: medium;
+    padding: 1px;
   }
   .content {
     margin: auto;
