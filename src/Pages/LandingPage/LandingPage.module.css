@@ -69,6 +69,7 @@
   border: none;
   border-bottom: 1px solid gray;
   font-size: large;
+  cursor: text;
 }
 .searchBtn {
   height: 30px;

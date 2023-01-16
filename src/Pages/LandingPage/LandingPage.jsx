@@ -114,7 +114,6 @@ const LandingPage = ({prop}) => {
       alert('Item already exist in cart');
     }
   };
-  useEffect(() => {}, [search]);
 
   const findProduct = (array) => {
     return array.filter((elem) =>
